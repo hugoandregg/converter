@@ -11,19 +11,19 @@
 <div class="col-md-6 col-md-offset-3">
 	<div id="carousel" class="carousel slide" data-ride="carousel" data-interval="false">
 	  <!-- Indicators -->
-	  <ol class="carousel-indicators">
+	  <!--<ol class="carousel-indicators">
 	  	{% for x in range %}
 	    	<li data-target="#carousel" data-slide-to="{{forloop.counter}}"
 	    		class="{% if forloop.counter == 1 %}active{% endif %}"></li>
 		{% endfor %}
-	  </ol>
+	  </ol> -->
 
 	  <!-- Wrapper for slides -->
 	  <div class="carousel-inner">
 
 		{% for x in range %}
 		    <div class="item {% if forloop.counter == 1 %}active{% endif %}">
-		      <img src="{{ STATIC_URL }}img/*-0.jpg">
+		      <img src="{{ STATIC_URL }}img/*-{{x}}.jpg">
 		      <div class="carousel-caption">
 		      </div>
 		    </div>
