@@ -12,8 +12,8 @@
 <p>{{user.username}}</p>
 {% for x in slides %}
 	<div class="col-md-3 portfolio-item">
-		<a href="{{user.username}}/{{x.titulo}}">{{x.titulo}}</a>
-		<a href="/delete/{{x.titulo}}">Delete</a>
+		<a href="{{user.username}}/{{x.titulo}}">{{x.titulo}}</a><br>
+		<button type="button" class="btn btn-default"><a href="/delete/{{x.titulo}}">delete</a></button>
 	</div>
 {% endfor %}
 <div class="col-md-3 portfolio-item">

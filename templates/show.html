@@ -5,6 +5,8 @@
 {% block navbar %}
 {% endblock %}
 
+{% block page %}<a href="/{{user.username}}/">{{user.username}}</a> - {{slide.titulo}} {% endblock %}
+
 {% block content %}
 {% load staticfiles %}
 
@@ -40,6 +42,7 @@
 	  </a>
 	</div>
 </div>
+	<button type="button" class="btn btn-default"><a href="/{{user.username}}/{{slide.titulo}}/download">download</a></button>
 </div>
 </div>
 {% endblock %}

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
+from django.views.static import serve
 
 from .models import File
 from .forms import FileForm
@@ -91,7 +92,7 @@ def show(request, username, slide): #publico
 	if usuario and verifica_slide:
 		caminho = "%s/%s" % (username, slide)
 		contador_arquivos = subprocess.check_output("cd templates/assets/img/%s; ls | wc -l" % caminho, stderr=subprocess.STDOUT, shell=True)
-		context = {'range': range(int(contador_arquivos)), 'caminho': caminho}
+		context = {'range': range(int(contador_arquivos)), 'caminho': caminho, 'user': usuario, 'slide': verifica_slide}
 		template = "show.html"
 		return render(request, template, context)
 	else:
@@ -106,3 +107,13 @@ def showProfile(request, username): #publico
 		return render(request, template, context)
 	else:
 		return HttpResponseRedirect("/explore")		
+
+
+def download(request, username, slide): #publico
+	usuario = User.objects.get(username=username)
+	verifica_slide = usuario.file_set.get(titulo=slide)
+	if usuario and verifica_slide:
+		filepath = 'media/%s' % verifica_slide.file
+		return serve(request, os.path.basename(filepath), os.path.dirname(filepath))
+	else:
+		return HttpResponseRedirect("/")
