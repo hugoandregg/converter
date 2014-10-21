@@ -12,7 +12,7 @@
 <p>{{user.username}}</p>
 {% for x in slides %}
 	<div class="col-md-3 portfolio-item">
-		<p>{{x.titulo}}</p>
+		<a href="{{user.username}}/{{x.titulo}}">{{x.titulo}}</a>
 		<a href="/delete/{{x.titulo}}">Delete</a>
 	</div>
 {% endfor %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}{{user.username}}{% endblock %}
+
+{% block navbar %}
+{% endblock %}
+
+{% block content %}
+{% for x in slides %}
+	<div class="col-md-3 portfolio-item">
+		<a href="{{user.username}}/{{x.titulo}}">{{x.titulo}}</a>
+	</div>
+{% endfor %}
+{% endblock %}

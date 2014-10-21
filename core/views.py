@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
+from django.contrib.auth.models import User
 
 from .models import File
 from .forms import FileForm
@@ -84,7 +85,24 @@ def delete(request, slide):
 
 	return HttpResponseRedirect("/")
 
+def show(request, username, slide): #publico
+	usuario = User.objects.get(username=username)
+	verifica_slide = usuario.file_set.get(titulo=slide)
+	if usuario and verifica_slide:
+		caminho = "%s/%s" % (username, slide)
+		contador_arquivos = subprocess.check_output("cd templates/assets/img/%s; ls | wc -l" % caminho, stderr=subprocess.STDOUT, shell=True)
+		context = {'range': range(int(contador_arquivos)), 'caminho': caminho}
+		template = "show.html"
+		return render(request, template, context)
+	else:
+		return HttpResponseRedirect("/")
 
-#def show(request, user, slide): #publico
-	
-#def publicindex(request, user): #publico
+def showProfile(request, username): #publico
+	usuario = User.objects.get(username=username)
+	if usuario:
+		slides = usuario.file_set.all()
+		context = {'slides': slides, 'user': usuario}
+		template = "showProfile.html"
+		return render(request, template, context)
+	else:
+		return HttpResponseRedirect("/explore")		
