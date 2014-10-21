@@ -23,18 +23,18 @@ def index(request):
 	user = request.user
 
 	#chama a funcao para converter o arquivo
-	if request.session.get('conv'):
+	if request.session.get('conv', True):
 		try: #se nao existir nenhum objeto, daria problema
 			slide = user.file_set.all()[user.file_set.count()-1]
 		except:
 			slide = None
 		if slide:
-			converter(request, slide.titulo, str(slide.file))
-		conv = request.session.get('conv')
-		conv = False
+			username = request.user.username
+			converter(request, username, slide.titulo, str(slide.file))
+			request.session['conv'] = False
 
 	slides = File.objects.filter(user=user)
-	context = {'slides': slides}
+	context = {'slides': slides, 'user': user}
 	template = "index.html"
 	return render(request, template, context)
 
@@ -62,18 +62,28 @@ def create(request):
 	return render(request, "create.html", {"form":form})
 
 
-def converter(request, titulo, slide):
+def converter(request, username, titulo, slide):
 	if slide:
-		comando = '''cd templates/assets/img;mkdir %s ;cd ../../../media/photos;
-			cp %s ../../templates/assets/img/%s;
-			cd ../../templates/assets/img/%s;
-			convert %s *.jpg; rm %s''' % (titulo, str(slide[7:]), titulo, titulo, str(slide[7:]), str(slide[7:]))
+		comando = '''cd templates/assets/img/%s;mkdir %s ;cd ../../../../media/photos;
+			cp %s ../../templates/assets/img/%s/%s;
+			cd ../../templates/assets/img/%s/%s;
+			convert %s *.jpg; rm %s''' % (username, titulo, str(slide[7:]), username, titulo, username, titulo, str(slide[7:]), str(slide[7:]))
 		os.system(comando)
 		
 	return HttpResponseRedirect("/")
 
-#@login_required
-#def delete(request, slideid):
+@login_required
+def delete(request, slide):
+	user = request.user
+	file = user.file_set.get(titulo=slide)
+	file.delete()
+
+	username = request.user.username
+	comando = "cd templates/assets/img/%s;rm -rf %s" % (username, slide)
+	os.system(comando)
+
+	return HttpResponseRedirect("/")
+
 
 #def show(request, user, slide): #publico
 	

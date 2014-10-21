@@ -9,9 +9,11 @@
 {% endblock %}
 
 {% block content %}
+<p>{{user.username}}</p>
 {% for x in slides %}
 	<div class="col-md-3 portfolio-item">
 		<p>{{x.titulo}}</p>
+		<a href="/delete/{{x.titulo}}">Delete</a>
 	</div>
 {% endfor %}
 <div class="col-md-3 portfolio-item">
