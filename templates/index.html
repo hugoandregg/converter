@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}dashboard{% endblock %}
+
+{% block navbar %}
+    <li>
+        <a href="{% url 'auth:logout' %}">Logout</a>
+    </li>
+{% endblock %}
+
+{% block content %}
+{% for x in slides %}
+	<div class="col-md-3 portfolio-item">
+		<p>{{x.titulo}}</p>
+	</div>
+{% endfor %}
+<div class="col-md-3 portfolio-item">
+	<a href="/new">Adicionar slide</a>
+</div>
+{% endblock %}

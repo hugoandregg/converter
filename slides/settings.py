@@ -72,7 +72,7 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
 
-MEDIA_ROOT = '/home/hugo/projetos/slides/slides/media'
+MEDIA_ROOT = '/home/hugo/projetos/slides/converter/media'
 
 MEDIA_URL = '/media/'
 
@@ -86,6 +86,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOGIN_REDIRECT_URL = '/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
