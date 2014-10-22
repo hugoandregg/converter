@@ -3,6 +3,12 @@
 {% block title %}Slides{% endblock %}
 
 {% block navbar %}
+	<li>
+        <a href="{% url 'auth:login' %}">Login</a>
+    </li>
+    <li>
+    	<a href="/accounts/create">Cadastrar</a>
+    </li>
 {% endblock %}
 
 {% block page %}<a href="/slides/{{user.username}}/">{{user.username}}</a> - {{slide.titulo}} {% endblock %}
@@ -10,7 +16,7 @@
 {% block content %}
 {% load staticfiles %}
 
-<div class="col-md-6 col-md-offset-3">
+<div class="col-md-6 col-md-offset-2">
 	<div id="carousel" class="carousel slide" data-ride="carousel" data-interval="false">
 	  <!-- Indicators -->
 	  <!--<ol class="carousel-indicators">
@@ -42,7 +48,25 @@
 	  </a>
 	</div>
 </div>
-	<button type="button" class="btn btn-default"><a href="/slides/{{user.username}}/{{slide.titulo}}/download">ver em PDF</a></button>
+
+
+	
+	<div class="col-md-3">
+	
+	
+	<div class="col-md-6 col-md-offset-1">
+	{% for x in slides_relacionados %}
+		<a href="/slides/{{user.username}}/{{x.titulo}}">
+		 <img id="slideImg" src="{{ STATIC_URL }}img/{{user.username}}/{{x.titulo}}/*-0.jpg"> </img>
+		 {{x.titulo}}
+		 </a>
+		 {% endfor %}
+	</div>
+	</div>
+
+	<div class="col-md-6 col-md-offset-4">
+		<button type="button" class="btn btn-default"><a href="/slides/{{user.username}}/{{slide.titulo}}/download">ver em PDF</a></button>
+	</div>
 </div>
 </div>
 {% endblock %}

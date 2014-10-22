@@ -24,6 +24,7 @@ def createSlide(request):
 	form = FileForm(request.POST, request.FILES)
 	if form.is_valid():
 		titulo = form.cleaned_data['titulo']
+		titulo = titulo.replace(" ", "_")
 		file = form.cleaned_data['file']
 		novo_slide = File(
 			user=user,
@@ -68,8 +69,8 @@ def show(request, username, slide): #publico
 		caminho = "%s/%s" % (username, slide)
 		contador_arquivos = subprocess.check_output("cd templates/assets/img/%s/;ls | wc -l" % caminho, stderr=subprocess.STDOUT, shell=True)
 		contador_arquivos = int(contador_arquivos)
-		print contador_arquivos
-		context = {'range': range(contador_arquivos), 'caminho': caminho, 'user': usuario, 'slide': verifica_slide}
+		slides_relacionados = File.objects.filter(user=usuario)[:3]
+		context = {'range': range(contador_arquivos), 'caminho': caminho, 'user': usuario, 'slide': verifica_slide, 'slides_relacionados': slides_relacionados}
 		template = "core/show.html"
 		return render(request, template, context)
 	else:
@@ -83,7 +84,7 @@ def showProfile(request, username): #publico
 		template = "core/showProfile.html"
 		return render(request, template, context)
 	else:
-		return HttpResponseRedirect("/explore")		
+		return HttpResponseRedirect("/")		
 
 
 def download(request, username, slide): #publico

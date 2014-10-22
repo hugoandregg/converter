@@ -3,6 +3,12 @@
 {% block title %}{{user.username}}{% endblock %}
 
 {% block navbar %}
+	<li>
+        <a href="{% url 'auth:login' %}">Login</a>
+    </li>
+    <li>
+    	<a href="/accounts/create">Cadastrar</a>
+    </li>
 {% endblock %}
 
 {% block content %}
