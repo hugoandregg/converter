@@ -9,15 +9,15 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{% block title %}boots{% endblock %}</title>
+    <title>{% block title %}Slide stream{% endblock %}</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}theme/bootstrap.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="{{ STATIC_URL }}css/4-col-portfolio.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}theme/usebootstrap.css" rel="stylesheet">
 
-    <link href="{{ STATIC_URL }}css/custom.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}theme/mystyle.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,7 +31,7 @@
 <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -41,13 +41,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">Playlist</a>
+                <a class="navbar-brand" href="/">Slide stream</a>
             </div>
+            <ul class="nav navbar-nav">
+            <li>
+              {% block navbaresq %}{% endblock %}
+            </li>
+          </ul>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav navbar-right">
                     {% block navbar %}
                     {% endblock %}
+                    
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -61,7 +67,7 @@
         <!-- Page Heading -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">{% block page %}Page Heading{% endblock %}
+                <h1 class="page-header">{% block page %}{% endblock %}
                 </h1>
             </div>
         </div>
@@ -91,11 +97,10 @@
     </div>
     <!-- /.container -->
 
-    <!-- jQuery Version 1.11.0 -->
-    <script src="{{ STATIC_URL }}js/jquery-1.11.0.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="{{ STATIC_URL }}bootstrap/bootstrap.min.js"></script>
+    <script src="{{ STATIC_URL }}bootstrap/usebootstrap.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
 
 </body>
 

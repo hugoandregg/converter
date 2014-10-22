@@ -1,0 +1,48 @@
+{% extends "core/base.html" %}
+
+{% block title %}Slides{% endblock %}
+
+{% block navbar %}
+{% endblock %}
+
+{% block page %}<a href="/slides/{{user.username}}/">{{user.username}}</a> - {{slide.titulo}} {% endblock %}
+
+{% block content %}
+{% load staticfiles %}
+
+<div class="col-md-6 col-md-offset-3">
+	<div id="carousel" class="carousel slide" data-ride="carousel" data-interval="false">
+	  <!-- Indicators -->
+	  <!--<ol class="carousel-indicators">
+	  	{% for x in range %}
+	    	<li data-target="#carousel" data-slide-to="{{forloop.counter}}"
+	    		class="{% if forloop.counter == 1 %}active{% endif %}"></li>
+		{% endfor %}
+	  </ol> -->
+
+	  <!-- Wrapper for slides -->
+	  <div class="carousel-inner">
+
+		{% for x in range %}
+		    <div class="item {% if forloop.counter == 1 %}active{% endif %}">
+		      <img src="{{ STATIC_URL }}img/{{caminho}}/*-{{x}}.jpg">
+		      <div class="carousel-caption">
+		      </div>
+		    </div>
+
+		{% endfor %}
+	  </div>
+
+	  <!-- Controls -->
+	  <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
+	    <span class="glyphicon glyphicon-chevron-left"></span>
+	  </a>
+	  <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
+	    <span class="glyphicon glyphicon-chevron-right"></span>
+	  </a>
+	</div>
+</div>
+	<button type="button" class="btn btn-default"><a href="/slides/{{user.username}}/{{slide.titulo}}/download">ver em PDF</a></button>
+</div>
+</div>
+{% endblock %}

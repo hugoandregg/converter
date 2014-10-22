@@ -1,0 +1,32 @@
+{% extends "core/base.html" %}
+
+{% block title %}dashboard{% endblock %}
+
+{% block navbaresq %}
+<li>
+    <a class="navbar-brand" href="/slides/new">Adicionar slide</a>
+</li>
+{% endblock %}
+
+{% block navbar %}
+    <li>
+        <a href="{% url 'auth:logout' %}">Logout</a>
+    </li>
+{% endblock %}
+
+{% block content %}
+{% for x in slides %}
+
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}theme/mystyle.css">
+	<div class="col-md-3 portfolio-item">
+		<a href="/slides/{{user.username}}/{{x.titulo}}">
+		 <img id="slideImg" src="{{ STATIC_URL }}img/{{user.username}}/{{x.titulo}}/*-0.jpg"> </img>
+		 </a>
+		<br>
+		<button id="buttonDel" type="button" class="btn btn-default"><a href="/slides/delete/{{x.titulo}}">delete</a></button>
+	</div>
+{% endfor %}
+<div class="col-md-3 portfolio-item">
+
+</div>
+{% endblock %}
