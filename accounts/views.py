@@ -22,9 +22,9 @@ def create_user(request):
 
             comando = "cd templates/assets/img; mkdir %s" % user.username
             os.system(comando)
-            return HttpResponseRedirect("slides/")
+            return HttpResponseRedirect("/slides/")
     else:
-        return HttpResponseRedirect("slides/")
+        return HttpResponseRedirect("/slides/")
 
     return render(request, "registration/create_user.html", {
         "form": form,

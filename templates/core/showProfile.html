@@ -16,7 +16,7 @@
 	<div class="col-md-3 portfolio-item">
 		<a href="/slides/{{user.username}}/{{x.titulo}}">
 		 <img id="slideImg" src="{{ STATIC_URL }}img/{{user.username}}/{{x.titulo}}/*-0.jpg"> </img>
-		 {{x.titulo}}
+		 <h4 class="col-md-offset-2">{{x.titulo}}</h4>
 		 </a>
 	</div>
 {% endfor %}
