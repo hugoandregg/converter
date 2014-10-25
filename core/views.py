@@ -42,6 +42,19 @@ def createSlide(request):
 
 def converter(request, username, titulo, slide):
 	if slide:
+		if str(slide[-3:]) == "ppt":
+			comando = 'cd media/photos ;unoconv -f pdf %s.ppt' % str(slide[7:-4])
+			os.system(comando)
+
+			novo_slide = File.objects.order_by('-pk')[0]
+			novo_slide.file = 'photos/%s.pdf' % str(slide[7:-4])
+			novo_slide.save() 
+
+			comando = 'cd media/photos ;rm %s.ppt' % str(slide[7:-4])
+			os.system(comando)
+
+			slide = str(novo_slide.file)
+
 		comando = '''cd templates/assets/img/%s;mkdir %s ;cd ../../../../media/photos;
 			cp %s ../../templates/assets/img/%s/%s;
 			cd ../../templates/assets/img/%s/%s;
