@@ -41,7 +41,7 @@ def createSlide(request):
 
 
 def converter(request, username, titulo, slide):
-	if slide:
+	if str(slide[-3:]) == "ppt" or "pdf":
 		if str(slide[-3:]) == "ppt":
 			comando = 'cd media/photos ;unoconv -f pdf %s.ppt' % str(slide[7:-4])
 			os.system(comando)
