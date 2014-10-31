@@ -55,6 +55,9 @@ def converter(request, username, titulo, slide):
 
 			slide = str(novo_slide.file)
 
+		comando = "cd media/photos ;zip %s.zip %s.pdf" % (username, str(slide[7:-4]))
+		os.system(comando)
+
 		comando = '''cd templates/assets/img/%s;mkdir %s ;cd ../../../../media/photos;
 			cp %s ../../templates/assets/img/%s/%s;
 			cd ../../templates/assets/img/%s/%s;
@@ -67,11 +70,15 @@ def converter(request, username, titulo, slide):
 def delete(request, slide):
 	user = request.user
 	file = user.file_set.get(titulo=slide)
-	file.delete()
 
 	username = request.user.username
-	comando = "cd templates/assets/img/%s;rm -rf %s" % (username, slide)
+	comando = "cd templates/assets/img/%s;rm -rf %s" % (username, file.titulo)
 	os.system(comando)
+
+	comando = "cd media/photos ;zip --delete %s.zip %s.pdf" % (username, str(file.file.name[7:-4])) 
+	os.system(comando)
+
+	file.delete()
 
 	return HttpResponseRedirect("/slides/")
 
@@ -82,7 +89,8 @@ def show(request, username, slide): #publico
 		caminho = "%s/%s" % (username, slide)
 		contador_arquivos = subprocess.check_output("cd templates/assets/img/%s/;ls | wc -l" % caminho, stderr=subprocess.STDOUT, shell=True)
 		contador_arquivos = int(contador_arquivos)
-		slides_relacionados = File.objects.filter(user=usuario)[:3]
+		slides_relacionados = usuario.file_set.filter()[:3]
+
 		context = {'range': range(contador_arquivos), 'caminho': caminho, 'user': usuario, 'slide': verifica_slide, 'slides_relacionados': slides_relacionados}
 		template = "core/show.html"
 		return render(request, template, context)
@@ -105,6 +113,14 @@ def download(request, username, slide): #publico
 	verifica_slide = usuario.file_set.get(titulo=slide)
 	if usuario and verifica_slide:
 		filepath = 'media/%s' % verifica_slide.file
+		return serve(request, os.path.basename(filepath), os.path.dirname(filepath))
+	else:
+		return HttpResponseRedirect("/slides/")
+
+def downloadZip(request, username):
+	usuario = User.objects.get(username=username)
+	if usuario:
+		filepath = 'media/photos/%s.zip' % usuario.username
 		return serve(request, os.path.basename(filepath), os.path.dirname(filepath))
 	else:
 		return HttpResponseRedirect("/slides/")

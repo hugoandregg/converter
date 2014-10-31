@@ -22,6 +22,8 @@ def create_user(request):
 
             comando = "cd templates/assets/img; mkdir %s" % user.username
             os.system(comando)
+            comando = "cd media/photos ;zip %s.zip readme.txr" % user.username
+            os.system(comando)
             return HttpResponseRedirect("/slides/")
     else:
         return HttpResponseRedirect("/slides/")

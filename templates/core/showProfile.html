@@ -2,6 +2,10 @@
 
 {% block title %}{{user.username}}{% endblock %}
 
+{% block navbaresq %}
+<a href="download">Baixar todos os slides</a>
+{% endblock %}
+
 {% block navbar %}
 	<li>
         <a href="{% url 'auth:login' %}">Login</a>
