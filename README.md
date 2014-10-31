@@ -13,3 +13,9 @@ Para usar esse sistema no seu computador, você precisa instalar o unoconv e o i
 ```apt-get install unoconv```
 e
 ```apt-get install imagemagick```
+
+No mac:
+
+```brew install unoconv```
+e 
+```brew install imagemagick```
